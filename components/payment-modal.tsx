@@ -11,10 +11,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react"
-import { CreditCard } from "lucide-react"
+import { CreditCard, DollarSign } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function PaymentModal() {
     const [open, setOpen] = useState(false)
+    const [amount, setAmount] = useState("")
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -35,16 +38,44 @@ export function PaymentModal() {
 
                     <div className="space-y-4">
                         <h4 className="font-medium leading-none text-center text-sm uppercase tracking-widest text-muted-foreground">One-time Payment</h4>
-                        <div className="grid grid-cols-3 gap-2">
-                            <Button variant="outline" className="h-16 flex flex-col gap-1 border-primary/20 hover:border-primary">
-                                <span className="text-lg font-bold">€1</span>
-                            </Button>
-                            <Button variant="outline" className="h-16 flex flex-col gap-1 border-primary/20 hover:border-primary">
-                                <span className="text-lg font-bold">€3</span>
-                            </Button>
-                            <Button variant="outline" className="h-16 flex flex-col gap-1 border-primary/20 hover:border-primary">
-                                <span className="text-lg font-bold">€5</span>
-                            </Button>
+                        <div className="grid gap-4">
+                            <div className="relative">
+                                <Label htmlFor="amount" className="sr-only">Amount</Label>
+                                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/50">
+                                    <DollarSign className="w-4 h-4" />
+                                </div>
+                                <Input
+                                    id="amount"
+                                    type="number"
+                                    placeholder="Enter your vanity price"
+                                    className="pl-9 h-14 text-lg font-bold bg-white/5 border-white/10 focus-visible:ring-yellow-500/50"
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                />
+                            </div>
+                            <div className="grid grid-cols-3 gap-2">
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setAmount("5")}
+                                    className="h-10 border-primary/20 hover:border-primary hover:bg-yellow-500/10 hover:text-yellow-500 transition-colors"
+                                >
+                                    €5
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setAmount("20")}
+                                    className="h-10 border-primary/20 hover:border-primary hover:bg-yellow-500/10 hover:text-yellow-500 transition-colors"
+                                >
+                                    €20
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => setAmount("100")}
+                                    className="h-10 border-primary/20 hover:border-primary hover:bg-yellow-500/10 hover:text-yellow-500 transition-colors"
+                                >
+                                    €100
+                                </Button>
+                            </div>
                         </div>
                         <p className="text-xs text-center text-muted-foreground">Grants absolutely no benefits.</p>
                     </div>
